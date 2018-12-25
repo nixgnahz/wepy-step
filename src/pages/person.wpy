@@ -1,0 +1,61 @@
+<style lang="less">
+  @import "../style/person.less";
+</style>
+
+<template>
+  <info :info.sync="info" :inviter.sync="inviter" :signInDays.sync="signInDays"></info>
+  <view style="width:100%;height:20rpx;background:#f8f8f8;"></view>
+  <function></function>
+  <recommend :listArr.sync="listArr"></recommend>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import fetch from '@/api/fetch'
+  import Info from '@/components/person/info'
+  import Function from '@/components/person/function'
+  import Recommend from '@/components/person/recommend'
+
+  export default class Person extends wepy.page {
+    components = {
+      info: Info,
+      function: Function,
+      recommend: Recommend
+    }
+
+    data = {
+      info: {},
+      inviter: '暂无',
+      signInDays: 1,
+      listArr: []
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+
+    }
+
+    events = {
+
+    }
+
+    async onLoad () {
+      await this.$parent.getUserInfo()
+      this.info = this.$parent.globalData.userInfo
+      this.$apply()
+      this.getSignData()
+    }
+
+    getSignData () {
+      fetch(`/index.php?g=Wxa&m=SetpChange&a=getSetp&session_3rd=${this.$parent.globalData.session}`).then((res) => {
+        const { even_num: signInDays, inviter } = res.data.userinfo
+        this.inviter = inviter || '暂无'
+        this.signInDays = signInDays || 1
+        this.$apply()
+      })
+    }
+  }
+</script>

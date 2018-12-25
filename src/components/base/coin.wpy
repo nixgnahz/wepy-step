@@ -1,0 +1,75 @@
+<style lang="less">
+  .mygolds {
+    height: 64rpx;
+    line-height: 64rpx;
+    font-size: 30rpx;
+    color: rgb(134, 134, 134);
+    background: #fff;
+    border-bottom: 1rpx solid rgb(225, 225, 225);
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10 !important;
+    .mygoldsi {
+      width: 40rpx;
+      height: 40rpx;
+      float: left;
+      margin-top: 13rpx;
+      margin-left: 35rpx;
+      margin-right: 8rpx;
+    }
+    .coinNumber {
+      margin-left: 5rpx;
+      height: 34rpx;
+      min-width: 100rpx;
+      top: 6rpx;
+      line-height: 34rpx;
+      display: inline-block;
+      .bigFont {
+        font-size: 28rpx;
+        color: #4865ff;
+      }
+      .smallFont {
+        font-size: 20rpx;
+        color: #4865ff;
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="mygolds">
+    <image class="mygoldsi" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/6/3/6/e/5bed2bc857413.gif"></image>
+    <view class="coinNumber">
+      <text class="bigFont">{{coinA}}</text>
+      <text class="smallFont">.{{coinB}}</text>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Gold extends wepy.component {
+    props = {
+      coin: {
+        type: [Number, String],
+        default: '0.00'
+      }
+    }
+
+    computed = {
+      coinA () {
+        if (this.coin.includes('.')) {
+          return this.coin.split('.')[0]
+        }
+        return this.coin
+      },
+      coinB () {
+        if (this.coin.includes('.')) {
+          return this.coin.split('.')[1]
+        }
+        return '00'
+      }
+    }
+  }
+</script>

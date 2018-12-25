@@ -1,0 +1,32 @@
+<template>
+  <view class="receive">
+    <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/f/3/b/9/5bed355366a29.png"></image>
+  </view>
+  <view class="circle" @tap='exchange'>
+    <image class="circlebg" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/1/b/6/9/5bed34458e404.png"></image>
+    <view class="whiteBorder"></view>
+    <image class="circleimg" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/d/8/8/c/5bed343ef40d6.png"></image>
+    <view class="number">{{stepNum}}</view>
+    <view class="today">今日步数</view>
+    <view class="day">每日24点清零</view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Step extends wepy.component {
+    props = {
+      stepNum: {
+        type: Number,
+        default: 0
+      }
+    }
+
+    methods = {
+      exchange () {
+        this.$emit('exchangeCoin')
+      }
+    }
+  }
+</script>

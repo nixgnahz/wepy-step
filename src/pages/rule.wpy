@@ -1,0 +1,115 @@
+<style lang="less">
+  @import "../style/rule";
+</style>
+<template>
+  <view class="role-information">
+    <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/8/2/0/0/5bed0935d9225.png"></image>
+  </view>
+  <view class="container role">
+    <view class="title">
+      <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/f/9/f/1/5bed14aace71a.png"></image>
+    </view>
+    <view class="what con">
+      步步换，让你每天的运动步数不再浪费，可以累计兑换各种奖励，更能邀请好友帮你助力，实惠奖品定期更新，让健康和惊喜常伴你左右，一起走起来！
+    </view>
+    <view class="title">
+      <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/1/1/1/e/5bed12eb73900.png"></image>
+    </view>
+    <view class="what con">
+      金币是步步换平台内，用每日运动步数兑换的特殊奖励，拥有金币的用户，可在步步换平台上免费兑换各种商品。
+    </view>
+    <view class="title">
+      <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/c/a/a/b/5bed141c8ce27.png"></image>
+    </view>
+    <view class="how con">
+      <view>
+        <text class="pink">1</text>获得更多步数即可兑换更多金币；
+      </view>
+      <view>
+        <text class="pink">2</text>增加每天跑步和步行的运动量，不断提升你微信运动的步数，请注意每天运动步数的统计上限为30000步，超出后不计；
+      </view>
+      <view>
+        <text class="pink">3</text>每成功邀请1名未注册过的好友加入，可立即获得相应步数奖励（点击气泡领取）；
+      </view>
+      <view>
+        <text class="pink">4</text>积极参加平台内组织的各种活动，就可获得更多步数和金币等意外惊喜；
+      </view>
+    </view>
+    <view class="title">
+      <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/6/e/6/e/5bed093d3f896.png"></image>
+    </view>
+    <view class="roles how con">
+      <view>
+        <text class="pink">1</text>步步换所记录的“今日步数”，是基于个人微信运动步数的授权数据，步数更新的时间与微信运动更新时间同步，
+        <text class="purple">每日步数会在24点自动清零</text>，次日重新计数；
+      </view>
+      <view>
+        <text class="pink">2</text>每人每日的运动步数
+        <text class="purple">上限为30000步</text>，如你”微信运动“内步数超出上限，则步步换内只保留30000步为有效步数，奖励、加成步数等不计入此上限；
+      </view>
+      <view>
+        <text class="pink">3</text>每成功邀请1位好友（未注册过步步换的）加入，
+        <text class="purple">立即获得相应步数奖励</text>（点击气泡领取），此邀请奖励无上限，随时成功邀请随时领取；
+      </view>
+      <view>
+        <text class="pink">4</text>
+        <text class="purple">每日签到</text>周期为
+        <text class="purple">14天</text>，连续签到将获得步数奖励，连续签到天数越多，步数奖励将越多，连续签到期间不可中断，
+        <text class="purple">中断后</text>连续天数将
+        <text class="purple">重新计算</text>。
+      </view>
+      <view>
+        <text class="pink">5</text>步步换内“今日步数”可兑换为金币，点击即可操作兑换，为确保大家的每1步都可兑换，金币计数会
+        <text class="purple">保存小数点的后2位</text>，金币与步数的兑换比例视平台收益会阶段性调整，当前比例为
+        <text class="purple">1：2000</text>，金币可持续累积，达到相应数量即可兑换平台内的商品；
+      </view>
+      <view>
+        <text class="pink">6</text>兑换商品前，请先确认收货地址信息，如因地址或手机号填写错误，导致无法收到快递，步步换不会补寄商品，另
+        <text class="purple">免费兑换的商品不可退换货</text>；
+      </view>
+      <view>
+        <text class="pink">7</text>新疆、西藏暂不支持发货；
+      </view>
+      <view>
+        <text class="pink">8</text> 步步换提倡运动更健康！为保障公平的兑换环境，您在使用步步换过程中如有违规获取步数的行为，步步换有权判定您的部分或所有兑换无效，并对您做出暂时或永久性的封号。情节严重者将移交有关行政管理机关给予行政处罚。违规行为包括但不限于：使用摇步器获取步数，使用外挂程序刷步数，指使家庭宠物代步等。
+      </view>
+      <view>
+        <text class="pink">9</text> 感谢您对步步换的支持，让我们一起健康生活、永远幸福！
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Rule extends wepy.page {
+    config = {
+      'navigationBarTitleText': '规则说明'
+    }
+
+    components = {
+
+    }
+
+    data = {
+
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+
+    }
+
+    events = {
+
+    }
+
+    onLoad () {
+
+    }
+  }
+</script>

@@ -1,0 +1,20 @@
+<template>
+  <button hover-class="none" class="invitation" openType="share">
+    <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/f/f/0/8/5bed35301f300.png"></image>
+    <view class="txt">
+      <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/4/3/9/c/5bed354e25fb1.png"></image>
+      <text>邀请好友得步数</text>
+    </view>
+  </button>
+  <view class="now">每邀请一个好友即可
+    <text style="color:#fe6b4f">获赠3000 </text>步
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Invite extends wepy.component {
+
+  }
+</script>

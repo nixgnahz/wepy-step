@@ -1,0 +1,31 @@
+<template>
+  <repeat for="{{bubbles}}" key="index" index="index" item="item">
+    <button class="tree" @tap="hide({{index}})" style="left:{{item.left}}rpx;top:{{item.top}}rpx" hover-class="none">
+      <image class="ball" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/b/0/1/1/5bed3fa18c66a.png" wx:if="{{item.id % 2}}"></image>
+      <text class="txtora" wx:if="{{item.id % 2}}">{{item.incstep}}</text>
+      <text class="tora" wx:if="{{item.id % 2}}">{{item.category}}</text>
+      <image class="ball" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/6/a/b/b/5bed3f9cc1cca.png" wx:if="{{!(item.id % 2)}}"></image>
+      <text class="txt" wx:if="{{!(item.id % 2)}}">{{item.incstep}}</text>
+      <text class="t" wx:if="{{!(item.id % 2)}}">{{item.category}}</text>
+    </button>
+  </repeat>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Bubble extends wepy.component {
+    props = {
+      bubbles: {
+        type: Array,
+        default: () => []
+      }
+    }
+
+    methods = {
+      hide (index) {
+        this.$emit('hideBubble', index)
+      }
+    }
+  }
+</script>

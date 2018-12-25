@@ -1,69 +1,95 @@
 <style lang="less">
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-}
+  @import './style/base';
 </style>
 
 <script>
-import wepy from 'wepy'
-import 'wepy-async-function'
+  import wepy from 'wepy'
+  import 'wepy-async-function'
+  import { login, setUserInfo } from '@/api/login'
 
-
-export default class extends wepy.app {
-  config = {
-    pages: [
-      'pages/index'
-    ],
-    window: {
-      backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
-    }
-  }
-
-  globalData = {
-    userInfo: null
-  }
-
-  constructor () {
-    super()
-    this.use('requestfix')
-  }
-
-  onLaunch() {
-    this.testAsync()
-  }
-
-  sleep (s) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('promise resolved')
-      }, s * 1000)
-    })
-  }
-
-  async testAsync () {
-    const data = await this.sleep(3)
-    console.log(data)
-  }
-
-  getUserInfo(cb) {
-    const that = this
-    if (this.globalData.userInfo) {
-      return this.globalData.userInfo
-    }
-    wepy.getUserInfo({
-      success (res) {
-        that.globalData.userInfo = res.userInfo
-        cb && cb(res.userInfo)
+  export default class extends wepy.app {
+    config = {
+      pages: [
+        'pages/index',
+        'pages/rule',
+        'pages/person',
+        'pages/lottery',
+        'pages/stepRecord',
+        'pages/coinRecord'
+      ],
+      window: {
+        'navigationBarTitleText': '步步换'
+      },
+      'tabBar': {
+        'color': '#868686',
+        'selectedColor': '#404040',
+        'list': [
+          {
+            'pagePath': 'pages/index',
+            'iconPath': 'image/home.png',
+            'selectedIconPath': 'image/home-selected.png',
+            'text': '首页'
+          },
+          {
+            'pagePath': 'pages/lottery',
+            'iconPath': 'image/lottery.png',
+            'selectedIconPath': 'image/lottery-selected.png',
+            'text': '抽奖'
+          },
+          {
+            'pagePath': 'pages/person',
+            'iconPath': 'image/person.png',
+            'selectedIconPath': 'image/person-selected.png',
+            'text': '我的'
+          }
+        ]
       }
-    })
+    }
+
+    constructor () {
+      super()
+      this.use('promisify')
+    }
+
+    globalData = {
+      token: 'jyttq1510637876',
+      userInfo: {},
+      session: '',
+      openid: ''
+    }
+
+    async getUserInfo () {
+      const data = await wepy.getStorageSync('login')
+      if (!data) {
+        await this.getRemoteUserInfo()
+      } else {
+        this.globalData.session = data.session
+        this.globalData.openid = data.openid
+        this.globalData.userInfo = data.userInfo
+      }
+    }
+
+    async getRemoteUserInfo () {
+      const { code } = await wepy.login()
+      const { data } = await login({ token: this.globalData.token, code: code })
+      this.globalData.session = data.session_3rd
+      this.globalData.openid = data.openid
+      this.globalData.userInfo = data.userinfo
+      this.setLocalUserInfo()
+    }
+
+    setLocalUserInfo () {
+      wepy.setStorageSync('login', {
+        session: this.globalData.session,
+        openid: this.globalData.openid,
+        userInfo: this.globalData.userInfo
+      })
+    }
+
+    async setUserInfo (res) {
+      const { data } = await setUserInfo({ session_3rd: this.globalData.session, encrypted: res.encryptedData, iv: res.iv })
+      this.globalData.userInfo = data
+      this.setLocalUserInfo()
+    }
   }
-}
 </script>

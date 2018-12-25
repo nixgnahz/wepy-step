@@ -1,0 +1,41 @@
+<template>
+  <view class="goods flex-row flex-between">
+    <repeat for="{{goodsList}}" key="index" index="index" item="item">
+      <view class="giftinfo">
+        <image class="pic" src="{{item.icon}}"></image>
+        <view class="title">{{item.goods_name}}</view>
+        <view class="golds">
+          <text>{{item.cold}}</text>
+        </view>
+        <view class="golds golds2">
+          <text>兑换人数：{{item.exchange_num}}</text>
+        </view>
+        <view class="exchange" @tap="exchange({{index}})">
+          <view class="center">
+            <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/e/5/1/d/5bed3b9407a9d.png"></image>
+            <text>免费兑换</text>
+          </view>
+        </view>
+      </view>
+    </repeat>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Goods extends wepy.component {
+    props = {
+      goodsList: {
+        type: Array,
+        default: () => []
+      }
+    }
+
+    methods = {
+      exchange (index) {
+        this.$emit('exchangeGoods', index)
+      }
+    }
+  }
+</script>

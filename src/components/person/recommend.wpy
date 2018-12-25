@@ -1,0 +1,34 @@
+<template>
+  <view class="bottominfo" wx:if="{{listArr.length}}">
+    <view class="title">精品推荐</view>
+    <view class="line"></view>
+    <view class="recommends flex-row">
+      <repeat for="{{listArr}}" key="index" index="index" item="item">
+        <navigator
+          hover-class="none"
+          open-type="navigate"
+          appId="{{item.appid}}"
+          path="{{item.path}}"
+          target="miniProgram"
+          class="list flex-column"
+        >
+          <view class="cover" style="background-image: url({{item.img}})"></view>
+          <text>{{item.title}}</text>
+        </navigator>
+      </repeat>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Recommend extends wepy.component {
+    props = {
+      listArr: {
+        type: Array,
+        default: () => []
+      }
+    }
+  }
+</script>

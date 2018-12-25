@@ -1,0 +1,93 @@
+<style lang="less">
+  .modal-dialog {
+    width: 550rpx;
+    height: 650rpx;
+    position: absolute;
+    top: 150rpx;
+    left: 100rpx;
+    background-color: #fff;
+    border-radius: 36rpx;
+    .tipImage {
+      position: absolute;
+      width: 423rpx;
+      height: 527rpx;
+      left: 63.5rpx;
+      top: -70rpx;
+    }
+    .closeImage {
+      position: absolute;
+      width: 60rpx;
+      height: 60rpx;
+      bottom: -120rpx;
+      left: 245rpx;
+    }
+    .btn-cancel {
+      position: absolute;
+      top: 540rpx;
+      left: 60rpx;
+      width: 93rpx;
+      height: 65rpx;
+      z-index: 2019;
+      background-image: url(http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/9/a/1/4/5bed24ce495b8.png);
+    }
+    .btn-confirm {
+      position: absolute;
+      width: 213rpx;
+      height: 85rpx;
+      top: 520rpx;
+      right: 60rpx;
+      background-image: url(http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/0/9/9/1/5bed24d48ba2a.png);
+    }
+  }
+</style>
+
+<template>
+  <view class="modal-mask" wx:if="{{show}}">
+    <view class="modal-dialog">
+      <image class="tipImage" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/6/0/4/9/5bed24f19c8a3.png"></image>
+      <image class="closeImage" @tap="hide" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/8/4/f/b/5bed25a9dfa0b.png"></image>
+      <button @tap="hide" class="btn-cancel cover"></button>
+      <button
+        wx:if="{{openType == 'getUserInfo'}}"
+        hover-class="none"
+        @getuserinfo="getUserData"
+        class="btn-confirm cover"
+        openType="getUserInfo"
+      ></button>
+      <button
+        wx:else
+        hover-class="none"
+        @tap="hide"
+        openType="openSetting"
+        class="btn-confirm cover"
+      ></button>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Success extends wepy.component {
+    props = {
+      show: {
+        type: Boolean,
+        twoWay: true,
+        default: false
+      },
+      openType: {
+        type: String,
+        default: 'getUserInfo'
+      }
+    }
+
+    methods = {
+      hide () {
+        this.show = false
+      },
+      getUserData (e) {
+        this.$emit('setUserInfo', e)
+      }
+    }
+  }
+</script>

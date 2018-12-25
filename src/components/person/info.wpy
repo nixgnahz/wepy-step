@@ -1,0 +1,36 @@
+<template>
+  <view class="top_info">
+    <image class="top_bg_bg" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/a/4/5/e/5beceda7ef6e6.png"></image>
+    <view class="my_info">
+      <view class="headBox">
+        <image class="newhead" src="{{info.portrait}}"></image>
+      </view>
+      <view class="infotxt">
+        <view class="newname">{{info.wechaname}}</view>
+        <view class="newoutid">
+          <text wx:if="{{userId}}">ID：{{info.userId}}</text>
+          <text class="newline" wx:if="{{info.userId}}">丨</text>
+          <text>邀请人：{{inviter}}</text>
+        </view>
+        <view class="newSigninBox">
+          <image class="Footprint" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/1/5/2/f/5becfee96cb79.png"></image>
+          <text class="newSignin">连续签到：{{signInDays}}天</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Info extends wepy.component {
+    props = {
+      info: {
+        type: Object
+      },
+      inviter: String,
+      signInDays: [String, Number]
+    }
+  }
+</script>

@@ -1,0 +1,74 @@
+<style lang="less">
+  .mask_content {
+    position: relative;
+    border-radius: 30px;
+    z-index: 10000;
+    .exchange1 {
+      width: 100%;
+      text-align: center;
+      height: 38rpx;
+      font-size: 40rpx;
+      font-weight: bold;
+      color: rgba(64, 64, 64, 1);
+      line-height: 46px;
+      position: absolute;
+      top: 480rpx;
+    }
+    .popupBox {
+      width: 750rpx;
+      height: 900rpx;
+    }
+    .mask_btn {
+      font-size: 35rpx;
+      position: absolute;
+      top: 743rpx;
+      width: 420rpx;
+      height: 80rpx;
+      background: rgba(129, 111, 249, 1);
+      border-radius: 40px;
+      left: 165rpx;
+      line-height: 80rpx;
+      color: #fff;
+    }
+    .shareBtnclose {
+      position: absolute;
+      top: 943rpx;
+      width: 60rpx;
+      height: 60rpx;
+      left: 345rpx;
+    }
+  }
+</style>
+
+<template>
+  <view class='modal-mask' wx:if="{{showSuccess}}">
+    <view class="mask_content">
+      <view class="exchange1">兑换成功</view>
+      <image class="popupBox" mode="widthFix" src="http://wx.11babay.cn/uploads/p/pjNjl1htjHPnciglS6aC/4/0/3/2/5bee505de3b36.png"></image>
+      <button class="mask_btn" openType="share">分享</button>
+      <view>
+        <image @tap="hide" class="shareBtnclose" src="http://wx.11babay.cn/uploads/p/pjNjl1htjHPnciglS6aC/d/a/b/6/5bee50010f8c6.png"></image>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Success extends wepy.component {
+    props = {
+      showSuccess: {
+        twoWay: true,
+        type: Boolean,
+        default: false
+      }
+    }
+
+    methods = {
+      hide () {
+        this.showSuccess = false
+      }
+    }
+  }
+</script>
