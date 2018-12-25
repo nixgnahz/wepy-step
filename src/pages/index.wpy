@@ -7,7 +7,16 @@
   <view class="index-ball-con">
     <bubble :bubbles.sync="bubbles"></bubble>
     <step :stepNum.sync="stepNum"></step>
-    <invite></invite>
+    <button hover-class="none" class="invitation" openType="share">
+      <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/f/f/0/8/5bed35301f300.png"></image>
+      <view class="txt">
+        <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/4/3/9/c/5bed354e25fb1.png"></image>
+        <text>邀请好友得步数</text>
+      </view>
+    </button>
+    <view class="now">每邀请一个好友即可
+      <text style="color:#fe6b4f">获赠3000 </text>步
+    </view>
   </view>
   <view class="stepAddition">商品在9点-21点不定时更新，请随时关注</view>
   <goods :goodsList.sync="goodsList"></goods>
@@ -26,7 +35,6 @@
   import Success from '@/components/base/success'
   import Bubble from '@/components/index/bubble'
   import Step from '@/components/index/step'
-  import Invite from '@/components/index/invite'
   import Goods from '@/components/index/goods'
 
   export default class Index extends wepy.page {
@@ -37,7 +45,6 @@
       baseSuccess: Success,
       bubble: Bubble,
       step: Step,
-      invite: Invite,
       goods: Goods
     }
 

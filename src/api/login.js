@@ -1,4 +1,4 @@
-import wepy from "wepy";
+import wepy from 'wepy';
 
 const login = (requestData) => {
   return new Promise((resolve, reject) => {

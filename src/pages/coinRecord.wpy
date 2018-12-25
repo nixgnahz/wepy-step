@@ -1,36 +1,65 @@
 <style lang="less">
-
+  @import "../style/record.less";
 </style>
-<template>
 
+<template>
+  <view class="topline"></view>
+  <view class="topinfo">
+    <text class="top_title">当前金币数量</text>
+    <text class="top_step">{{coinNum}}</text>
+  </view>
+  <view class="middleline"></view>
+  <view class="main" wx:if="{{coinList.length}}">
+    <repeat for="{{coinList}}" key="index" index="index" item="item">
+      <view class="stepfa">
+        <view class="stepDetails">
+          <text class="steptitle">{{item.category}}</text>
+          <text class="steptime">{{item.change_time}}</text>
+          <text class="stepnumberpius" wx:if="{{item.type == 1}}">+{{item.cold}}</text>
+          <text class="stepnumberminus" wx:else>-{{item.cold}}</text>
+          <view class="bottomline"></view>
+        </view>
+      </view>
+    </repeat>
+  </view>
+  <view wx:else>
+    <view class="nothing">暂无金币兑换记录</view>
+  </view>
 </template>
 
 <script>
   import wepy from 'wepy'
+  import fetch from '@/api/fetch'
 
   export default class CoinRecord extends wepy.page {
-    components = {
-
-    }
-
     data = {
-
-    }
-
-    computed = {
-
-    }
-
-    methods = {
-
-    }
-
-    events = {
-
+      coinNum: 0,
+      coinList: []
     }
 
     onLoad () {
+      this.getCoinList()
+      this.getCoinData()
+    }
 
+    getCoinList () {
+      fetch(`/index.php?g=Wxa&m=SetpChange&a=coldInfo&session_3rd=${this.$parent.globalData.session}`).then((res) => {
+        const data = res.data.data
+        let arr = []
+        for (let value of data) {
+          value.category = (Number(value.category) === 1 ? '步数兑换金币' : '金币兑换商品')
+          arr.push(value)
+        }
+        this.coinList = arr
+        this.$apply()
+      })
+    }
+
+    getCoinData () {
+      fetch(`/index.php?g=Wxa&m=SetpChange&a=getSetp&session_3rd=${this.$parent.globalData.session}`).then((res) => {
+        this.coinNum = res.data.userinfo.cold || 0
+        this.$apply()
+      })
     }
   }
 </script>

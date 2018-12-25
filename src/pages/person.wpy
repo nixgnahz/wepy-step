@@ -5,7 +5,24 @@
 <template>
   <info :info.sync="info" :inviter.sync="inviter" :signInDays.sync="signInDays"></info>
   <view style="width:100%;height:20rpx;background:#f8f8f8;"></view>
-  <function></function>
+  <view class="bottominfo">
+    <view class="title">常用功能</view>
+    <view class="line"></view>
+    <view class="functionList">
+      <navigator hover-class="none" open-type="navigate" url="./coinRecord" class="navbar_details3">
+        <image class="bottomicon" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/2/6/4/9/5becdf1640585.png"></image>
+        <text class="bottomtitle">兑换明细</text>
+      </navigator>
+      <navigator hover-class="none" open-type="navigate" url="./stepRecord" class="navbar_details3">
+        <image class="bottomicon" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/4/d/e/9/5becded9f1df6.png"></image>
+        <text class="bottomtitle">步数明细</text>
+      </navigator>
+      <navigator hover-class="none" open-type="navigate" url="./rule" class="navbar_details4">
+        <image class="bottomicon" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/4/2/3/0/5becdf0d3879f.png"></image>
+        <text class="bottomtitle">规则说明</text>
+      </navigator>
+    </view>
+  </view>
   <recommend :listArr.sync="listArr"></recommend>
 </template>
 
@@ -13,13 +30,11 @@
   import wepy from 'wepy'
   import fetch from '@/api/fetch'
   import Info from '@/components/person/info'
-  import Function from '@/components/person/function'
   import Recommend from '@/components/person/recommend'
 
   export default class Person extends wepy.page {
     components = {
       info: Info,
-      function: Function,
       recommend: Recommend
     }
 
@@ -28,18 +43,6 @@
       inviter: '暂无',
       signInDays: 1,
       listArr: []
-    }
-
-    computed = {
-
-    }
-
-    methods = {
-
-    }
-
-    events = {
-
     }
 
     async onLoad () {

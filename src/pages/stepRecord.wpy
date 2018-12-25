@@ -1,36 +1,67 @@
 <style lang="less">
-
+  @import "../style/record.less";
 </style>
-<template>
 
+<template>
+  <view class="topline"></view>
+  <view class="topinfo">
+    <text class="top_title">当前微信步数</text>
+    <text class="top_step">{{stepNum}}</text>
+  </view>
+  <view class="middleline"></view>
+  <view class="main" wx:if="{{stepList.length}}">
+    <repeat for="{{stepList}}" key="index" index="index" item="item">
+      <view class="stepfa">
+        <view class="stepDetails">
+          <text class="steptitle">{{item.category}}</text>
+          <text class="steptime">{{item.sign_time}}</text>
+          <text class="stepnumberpius" wx:if="{{item.type == 1}}">+{{item.incstep}}</text>
+          <text class="stepnumberminus" wx:else>-{{item.incstep}}</text>
+          <view class="bottomline"></view>
+        </view>
+      </view>
+    </repeat>
+  </view>
+  <view wx:else>
+    <view class="nothing">暂无步数兑换记录</view>
+  </view>
+</view>
 </template>
 
 <script>
   import wepy from 'wepy'
+  import fetch from '@/api/fetch'
+  import { getCategory } from '@/api/common'
 
   export default class StepRecord extends wepy.page {
-    components = {
-
-    }
-
     data = {
-
-    }
-
-    computed = {
-
-    }
-
-    methods = {
-
-    }
-
-    events = {
-
+      stepNum: 0,
+      stepList: []
     }
 
     onLoad () {
+      this.getStepList()
+      this.getStepData()
+    }
 
+    getStepList () {
+      fetch(`/index.php?g=Wxa&m=SetpChange&a=stepInfo&session_3rd=${this.$parent.globalData.session}`).then((res) => {
+        const data = res.data.data
+        let arr = []
+        for (let value of data) {
+          value.category = getCategory(value.category)
+          arr.push(value)
+        }
+        this.stepList = arr
+        this.$apply()
+      })
+    }
+
+    getStepData () {
+      fetch(`/index.php?g=Wxa&m=SetpChange&a=getSetp&session_3rd=${this.$parent.globalData.session}`).then((res) => {
+        this.stepNum = res.data.userinfo.totalwxstep || 0
+        this.$apply()
+      })
     }
   }
 </script>

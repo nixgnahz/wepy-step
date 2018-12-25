@@ -1,4 +1,4 @@
-import wepy from "wepy";
+import wepy from 'wepy';
 
 const decode = (requestData) => {
   const { encryptedData, iv, session } = requestData
@@ -7,9 +7,9 @@ const decode = (requestData) => {
       url: `https://2zhuji.cn/index.php?g=Wap&m=Wxaapi&a=decode_encrypted&encrypted=${encodeURI(encryptedData)}&iv=${iv}&session_3rd=${session}`,
       method: 'POST',
       data: {
-        "encrypted": encodeURI(encryptedData),
-        "iv": iv,
-        "session_3rd": session
+        'encrypted': encodeURI(encryptedData),
+        'iv': iv,
+        'session_3rd': session
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'

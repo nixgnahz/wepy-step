@@ -87,29 +87,5 @@
     config = {
       'navigationBarTitleText': '规则说明'
     }
-
-    components = {
-
-    }
-
-    data = {
-
-    }
-
-    computed = {
-
-    }
-
-    methods = {
-
-    }
-
-    events = {
-
-    }
-
-    onLoad () {
-
-    }
   }
 </script>

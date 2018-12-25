@@ -1,4 +1,4 @@
-import wepy from "wepy";
+import wepy from 'wepy';
 
 const getCategory = (category) => {
   const categoryObj = {

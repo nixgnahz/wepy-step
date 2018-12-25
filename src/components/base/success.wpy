@@ -41,7 +41,7 @@
 </style>
 
 <template>
-  <view class='modal-mask' wx:if="{{showSuccess}}">
+  <view class="modal-mask" wx:if="{{showSuccess}}">
     <view class="mask_content">
       <view class="exchange1">兑换成功</view>
       <image class="popupBox" mode="widthFix" src="http://wx.11babay.cn/uploads/p/pjNjl1htjHPnciglS6aC/4/0/3/2/5bee505de3b36.png"></image>
