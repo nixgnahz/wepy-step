@@ -126,5 +126,12 @@
         }
       })
     }
+
+    onShareAppMessage () {
+      return {
+        title: '每天登录送步数，步数换礼物',
+        path: 'pages/index'
+      }
+    }
   }
 </script>

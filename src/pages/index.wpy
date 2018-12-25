@@ -185,8 +185,7 @@
 
     getGoodsList () {
       fetch(`/index.php?g=Wxa&m=SetpChange&a=goodsList&session_3rd=${this.$parent.globalData.session}`).then((res) => {
-        const data = res.data.data
-        this.goodsList = data
+        this.goodsList = res.data.data
         this.$apply()
       })
     }
@@ -207,6 +206,13 @@
         this.innerAudioContext.play()
       } else {
         this.innerAudioContext.pause()
+      }
+    }
+
+    onShareAppMessage () {
+      return {
+        title: '每天登录送步数，步数换礼物',
+        path: 'pages/index'
       }
     }
   }

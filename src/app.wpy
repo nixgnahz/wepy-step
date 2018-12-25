@@ -12,6 +12,7 @@
       pages: [
         'pages/index',
         'pages/rule',
+        'pages/diary',
         'pages/person',
         'pages/lottery',
         'pages/exchange',
@@ -36,6 +37,12 @@
             'iconPath': 'image/lottery.png',
             'selectedIconPath': 'image/lottery-selected.png',
             'text': '抽奖'
+          },
+          {
+            'pagePath': 'pages/diary',
+            'iconPath': 'image/diary.png',
+            'selectedIconPath': 'image/diary-selected.png',
+            'text': '日记'
           },
           {
             'pagePath': 'pages/person',
