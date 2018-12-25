@@ -1,0 +1,45 @@
+<template>
+  <view class="luck_draw_record">
+    <image class="luck_record_image" src="http://wx.11babay.cn/uploads/p/pjNjl1htjHPnciglS6aC/f/3/6/c/5bee5b4e869de.png"></image>
+    <view class="record_title">获奖记录</view>
+    <view class="record_listView">
+      <repeat for="{{recordList}}" key="index" index="index" item="item">
+        <view class="record" style="background-color: {{index % 2 == 0 ? '#566CF1' : '#6B7FF5'}}">
+          <image class="user_header" src="{{item.portrait}}"></image>
+          <text class="record_content">恭喜{{item.username}}抽中了{{item.gift}}</text>
+        </view>
+      </repeat>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class FakeRecord extends wepy.component {
+    data = {
+      recordList: [
+        {
+          portrait: 'http://wx.11babay.cn/uploads/e/eefkgl1520592698/1/2/8/e/5aab54900f83e.jpg',
+          gift: 'IphoneX',
+          username: '懂你'
+        },
+        {
+          portrait: 'http://wx.11babay.cn/uploads/e/eefkgl1520592698/e/6/1/7/5aab56b4d802b.jpg',
+          gift: '蓝牙音响',
+          username: '似乎、铥了幸福'
+        },
+        {
+          portrait: 'http://wx.11babay.cn/uploads/e/eefkgl1520592698/f/e/9/1/5ab0ae3626b8a.jpg',
+          gift: '50元红包',
+          username: '光明light'
+        },
+        {
+          portrait: 'http://wx.11babay.cn/uploads/e/eefkgl1520592698/0/2/9/a/5ab0aebe0d452.jpg',
+          gift: '50金币',
+          username: 'A全屋硅藻泥定制'
+        }
+      ]
+    }
+  }
+</script>

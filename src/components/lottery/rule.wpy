@@ -1,0 +1,27 @@
+<template>
+  <view class="luck_draw_rule">
+    <image class="introduce_image" src="http://wx.11babay.cn/uploads/p/pjNjl1htjHPnciglS6aC/8/b/a/3/5bee5b3526913.png"></image>
+    <view class="content">
+      <view class="detail">
+        <text class="detailFont">1.花费10金币可抽奖一次，每天有6次抽奖机会</text>
+      </view>
+      <view class="detail">
+        <text class="detailFont">2.获得实物奖励的用户，请在弹窗填写详细邮寄地址</text>
+      </view>
+      <view class="detail">
+        <text class="detailFont">3.分享到群后可以额外获得一次抽奖次数</text>
+      </view>
+      <view class="detail">
+        <text class="detailFont">4.累计消耗70金币可以免费抽奖一次</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Rule extends wepy.component {
+
+  }
+</script>

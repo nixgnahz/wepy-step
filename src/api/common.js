@@ -10,6 +10,12 @@ const getCategory = (category) => {
   return categoryObj[category] || '任务奖励'
 }
 
+const resultObj = {
+  '1': 2,
+  '5': 7,
+  '10': 1
+}
+
 const toast = (title = '温馨提示', icon = 'none', duration = 1000) => {
   wepy.showToast({
     title,
@@ -29,6 +35,7 @@ const navigate = (url) => {
 
 export {
   getCategory,
+  resultObj,
   toast,
   navigate
 }

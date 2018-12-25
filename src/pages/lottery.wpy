@@ -1,36 +1,102 @@
 <style lang="less">
-
+  @import "../style/lottery.less";
 </style>
-<template>
 
+<template>
+  <view class="container">
+    <baseCoin :coin.sync="coin"></baseCoin>
+    <view class="rotate-box cover">
+      <view class="rotate-light cover">
+        <view class="cover rotate-dial" style="background-image: url(http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/2/1/e/f/5bf511d0eebeb.png)" animation="{{aniData}}"></view>
+        <view class="cover rotate-indicator" @tap="rotate"></view>
+      </view>
+    </view>
+    <rule></rule>
+    <fakeRecord></fakeRecord>
+  </view>
 </template>
 
 <script>
   import wepy from 'wepy'
+  import fetch from '@/api/fetch'
+  import { toast, resultObj } from '@/api/common'
+  import Coin from '@/components/base/coin'
+  import Rule from '@/components/lottery/rule'
+  import FakeRecord from '@/components/lottery/fakeRecord'
 
   export default class Lottery extends wepy.page {
     components = {
-
+      baseCoin: Coin,
+      rule: Rule,
+      fakeRecord: FakeRecord
     }
 
     data = {
-
+      coin: '0.00',
+      aniData: {}
     }
 
-    computed = {
+    waitFlag = 1
+    timer = null
 
+    onLoad () {
+      this.getCoinData()
+    }
+
+    onUnload () {
+      clearTimeout(this.timer)
+      this.waitFlag = 1
     }
 
     methods = {
-
+      async rotate () {
+        if (!this.waitFlag) return
+        this.waitFlag = 0
+        if (Number(this.coin) < 10) {
+          this.waitFlag = 1
+          toast('金币不足')
+          return
+        }
+        const res = await fetch(`/index.php?g=Wxa&m=SetpChange&a=luckyDraw&session_3rd=${this.$parent.globalData.session}`)
+        const result = res.data.res
+        this.rotateDial(result)
+      }
     }
 
-    events = {
-
+    getCoinData () {
+      fetch(`/index.php?g=Wxa&m=SetpChange&a=getSetp&session_3rd=${this.$parent.globalData.session}`).then((res) => {
+        this.coin = res.data.userinfo.cold
+        this.$apply()
+      })
     }
 
-    onLoad () {
-
+    rotateDial (res) {
+      const result = resultObj[res] - 1 || 0
+      const degree = 45
+      const round = Math.floor(Math.random() * 4) + 4
+      const rotate = -(degree * result + 360 * round)
+      const animation = wepy.createAnimation({
+        transformOrigin: '50% 50%',
+        timingFunction: 'ease',
+        duration: 6000,
+        delay: 0
+      })
+      animation.rotate(rotate).step({ duration: 6000 })
+      this.$apply()
+      this.aniData = animation.export()
+      this.timer = setTimeout(() => {
+        this.getCoinData()
+        wepy.showModal({
+          title: '温馨提示',
+          content: `恭喜你抽中${res}金币`,
+          showCancel: false
+        }).then(() => {
+          this.waitFlag = 1
+          animation.rotate(0).step({ duration: 0 })
+          this.aniData = animation.export()
+          this.$apply()
+        })
+      }, 6000)
     }
   }
 </script>
