@@ -29,7 +29,7 @@
   import wepy from 'wepy'
   import fetch from '@/api/fetch'
   import decode from '@/api/decode'
-  import { getCategory, toast } from '@/api/common'
+  import { getCategory, toast, navigate } from '@/api/common'
   import Coin from '@/components/base/coin'
   import Auth from '@/components/base/auth'
   import Success from '@/components/base/success'
@@ -72,14 +72,16 @@
         })
       },
       exchangeGoods (index) {
-        const { on, cold: coin } = this.goodsList[index]
+        const { on, cold: coin, id } = this.goodsList[index]
         if (Number(this.coin) < Number(coin)) {
           toast('金币不足')
           return
         }
         if (Number(on) === 0) {
           toast('库存不足')
+          return
         }
+        navigate(`./exchange?id=${id}`)
       },
       exchangeCoin () {
         if (Number(this.stepNum) === 0) {

@@ -1,0 +1,317 @@
+.box {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  overflow: hidden;
+  background-color: rgb(248, 248, 248);
+  .productinfo {
+    position: relative;
+    width: 100%;
+    height: 230rpx;
+    margin-top: 20rpx;
+    background-color: rgb(255, 255, 255);
+    .productimg {
+      position: absolute;
+      width: 150rpx;
+      height: 150rpx;
+      border-radius: 10rpx;
+      left: 30rpx;
+      margin-top: 30rpx;
+    }
+    .productname {
+      position: absolute;
+      margin-top: 46rpx;
+      font-weight: bold;
+      font-size: 30rpx;
+      color: rgb(40, 40, 40);
+      left: 210rpx;
+    }
+    .productnumber {
+      position: absolute;
+      margin-top: 46rpx;
+      font-size: 30rpx;
+      color: rgb(35, 35, 35);
+      right: 30rpx;
+    }
+    .allmoney {
+      position: absolute;
+      margin-top: 138rpx;
+      left: 210rpx;
+      width: 600rpx;
+      line-height: 28rpx;
+      font-weight: bold;
+    }
+  }
+  .ranicon {
+    width: 28rpx;
+    height: 28rpx;
+    float: left;
+    margin-right: 10rpx;
+    image {
+      width: 28rpx;
+      height: 28rpx;
+    }
+  }
+  .money {
+    font-size: 28rpx;
+    color: #fe6b4f;
+    height: 28rpx;
+    line-height: 28rpx;
+  }
+  .line {
+    height: 1rpx;
+    width: 100%;
+    color: #ececec;
+  }
+  .remark {
+    position: relative;
+    width: 100%;
+    height: 95rpx;
+    line-height: 95rpx;
+    background-color: rgb(255, 255, 255);
+    border-bottom: 1rpx solid #ececec;
+    .remarktitle {
+      position: absolute;
+      font-size: 30rpx;
+      color: rgb(35, 35, 35);
+      left: 30rpx;
+      line-height: 95rpx;
+    }
+    input {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30rpx;
+      height: 30rpx;
+      line-height: 30rpx;
+      color: rgb(35, 35, 35);
+      left: 200rpx;
+      right: 30rpx;
+      overflow: hidden;
+    }
+  }
+  .remarkcontentno {
+    color: rgb(134, 134, 134);
+  }
+  .payinfo {
+    padding: 25rpx 30rpx 20rpx 30rpx;
+    box-sizing: border-box;
+    margin-top: 10rpx;
+    width: 100%;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    .payinfotitle {
+      margin-top: 15rpx;
+      left: 30rpx;
+      height: 40rpx;
+      line-height: 30rpx;
+      font-size: 30rpx;
+      color: rgb(35, 35, 35);
+    }
+    .payinforan {
+      float: left;
+    }
+    .payinforannumber {
+      float: right;
+    }
+  }
+  .pinfo {
+    height: 56rpx;
+    line-height: 56rpx;
+    font-size: 26rpx;
+    color: rgb(134, 134, 134);
+  }
+  .sumbitpay {
+    position: fixed;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    bottom: 0rpx;
+    height: 120rpx;
+    .paymoney {
+      position: absolute;
+      width: auto;
+      min-width: 200rpx;
+      height: 40rpx;
+      line-height: 40rpx;
+      bottom: 40rpx;
+      right: 240rpx;
+      .paymoneyimg {
+        float: left;
+        width: 28rpx;
+        height: 28rpx;
+        line-height: 28rpx;
+        margin-top: 6rpx;
+        margin-right: 8rpx;
+      }
+      .paymoneytitle {
+        float: left;
+        font-size: 30rpx;
+        line-height: 40rpx;
+        font-weight: bold;
+        color: rgb(134, 134, 134);
+      }
+      .paymoneynumber {
+        float: left;
+        font-size: 30rpx;
+        line-height: 40rpx;
+        font-weight: bold;
+        color: #fe6b4f;
+        margin-right: 8rpx;
+      }
+    }
+    .paybutton {
+      position: absolute;
+      width: 200rpx;
+      height: 70rpx;
+      right: 30rpx;
+      bottom: 25rpx;
+      .paybuttonimg {
+        position: absolute;
+        width: 200rpx;
+        height: 70rpx;
+        line-height: 30rpx;
+      }
+      .paybuttontext {
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        line-height: 70rpx;
+        font-size: 30rpx;
+        color: rgb(255, 255, 255);
+      }
+    }
+  }
+}
+
+.changed {
+  width: 100%;
+  height: 100%;
+  background: #f8f8f8;
+  .title {
+    width: 618rpx;
+    height: 30rpx;
+    background: rgb(49, 49, 49);
+    border-radius: 14rpx;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 28rpx;
+  }
+  .cont {
+    width: 553rpx;
+    height: 1111rpx;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 40rpx;
+  }
+  .contimg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+  }
+  .changpic {
+    position: absolute;
+    top: 124rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 258rpx;
+    height: 50rpx;
+    line-height: 50rpx;
+    color: rgb(218, 41, 41);
+    font-weight: bold;
+    font-size: 50rpx;
+    image {
+      width: 50rpx;
+      height: 50rpx;
+      float: left;
+      margin-right: 8rpx;
+    }
+  }
+  .inv {
+    height: 28rpx;
+    line-height: 28rpx;
+    text-align: center;
+    position: relative;
+    top: 198rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 28rpx;
+    margin-bottom: 20rpx;
+  }
+  .pic {
+    width: 430rpx;
+    height: 416rpx;
+    position: absolute;
+    top: 388rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    image {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+  .sharebtn {
+    position: absolute;
+    top: 888rpx;
+    border: none;
+    width: 390rpx;
+    height: 80rpx;
+    background: rgb(129, 111, 249);
+    border-radius: 40rpx;
+    line-height: 80rpx;
+    color: #fff;
+    font-size: 30rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    &::after {
+      border: none;
+    }
+  }
+  .reminders {
+    width: 230rpx;
+    height: 22rpx;
+    position: absolute;
+    top: 1090rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 22rpx;
+    line-height: 22rpx;
+    color: rgb(134, 134, 134);
+    image {
+      width: 22rpx;
+      height: 22rpx;
+      float: left;
+      margin-right: 10rpx;
+    }
+  }
+  .noadressbutton {
+    position: absolute;
+    width: 390rpx;
+    height: 80rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(255, 255, 255);
+    border-radius: 40rpx;
+    border: 1rpx solid #816ff9;
+    top: 1000rpx;
+    .adresstext {
+      position: absolute;
+      width: 100%;
+      font-size: 26rpx;
+      color: #816ff9;
+      line-height: 80rpx;
+      text-align: center;
+    }
+  }
+}
+
+
+
+

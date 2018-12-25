@@ -33,9 +33,18 @@ const navigate = (url) => {
   })
 }
 
+const isPhoneAvailable = (phone) => {
+  const regex = /^[1][3,4,5,7,8]\d{9}$/
+  if (regex.test(phone)) {
+    return true
+  }
+  return false
+}
+
 export {
   getCategory,
   resultObj,
   toast,
-  navigate
+  navigate,
+  isPhoneAvailable
 }

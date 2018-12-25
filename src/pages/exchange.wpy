@@ -1,0 +1,130 @@
+<style lang="less">
+  @import "../style/exchange.less";
+</style>
+
+<template>
+  <view class="box">
+    <view class="productinfo">
+      <image class="productimg" src="{{goodsInfo.icon}}"></image>
+      <text class="productname">{{goodsInfo.goods_name}}</text>
+      <text class="productnumber">x1</text>
+      <view class="allmoney">
+        <view class="ranicon">
+          <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/1/3/2/0/5bee887f6bd95.png"></image>
+        </view>
+        <text class="money">{{goodsInfo.cold}}</text>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="remark">
+      <text class="remarktitle">充值号码：</text>
+      <input @input="getTelephone" class="remarkcontent" maxlength="11" placeholder="仅限中国大陆手机号" placeholderClass="remarkcontentno" type="number"></input>
+    </view>
+    <view class="payinfo">
+      <view class="payinfotitle">支付信息</view>
+      <view class="pinfo">
+        <text class="payinforan">金币：</text>
+        <text class="payinforannumber">{{goodsInfo.cold}}</text>
+      </view>
+    </view>
+    <view class="sumbitpay">
+      <view class="paymoney">
+        <text class="paymoneytitle">实付：</text>
+        <image class="paymoneyimg" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/1/3/2/0/5bee887f6bd95.png"></image>
+        <text class="paymoneynumber">{{goodsInfo.cold}}</text>
+      </view>
+      <view catchtap="sumbitpay" class="paybutton">
+        <image class="paybuttonimg" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/2/0/6/2/5bee89aead394.png"></image>
+        <text class="paybuttontext" @tap='exchange'>立即兑换</text>
+      </view>
+    </view>
+  </view>
+  <view class='modal-mask' wx:if="{{showSuccess}}">
+    <view class="changed">
+      <view class="title"></view>
+      <view class="cont">
+        <image class="contimg" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/6/2/7/7/5bee8e452196e.png"></image>
+        <view class="changpic">
+          <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/e/2/a/4/5bee8e5d40e15.png"></image>
+          <text>兑换成功</text>
+        </view>
+        <view class="inv">恭喜您用步数换了一件商品</view>
+        <view class="inv">消息分享给好友，邀请成功率更高</view>
+        <view class="pic">
+          <image src="http://wx.11babay.cn/uploads/v/v6feivMch9CSocG5C8bG/0/a/6/0/5bbebfe78e146.png"></image>
+        </view>
+        <button class="sharebtn" openType="share">快去分享给好友吧</button>
+        <view catchtap="toorder" class="noadressbutton">
+          <text class="adresstext" @tap='hide'>我知道了</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import fetch from '@/api/fetch'
+  import { toast, isPhoneAvailable } from '@/api/common'
+
+  export default class Exchange extends wepy.page {
+    data = {
+      showSuccess: false,
+      goodsInfo: {}
+    }
+
+    id = ''
+    phone = ''
+
+    onLoad (options) {
+      if (options.id) {
+        this.id = options.id
+        this.getGoodsDetail()
+      }
+    }
+
+    methods = {
+      getTelephone (e) {
+        this.phone = e.detail.value
+      },
+      exchange () {
+        if (!this.phone) {
+          toast('请输入手机号')
+          return
+        }
+        if (!isPhoneAvailable(this.phone)) {
+          toast('请输入正确的手机号')
+          return
+        }
+        wepy.showModal({
+          title: '兑换提示',
+          content: `确定兑换【限时专享】${this.goodsInfo.goods_name}？`
+        }).then((res) => {
+          if (res.confirm) {
+            fetch(`/index.php?g=Wxa&m=SetpChange&a=coldChangeGoods&session_3rd=${this.$parent.globalData.session}&goods_id=${this.id}`).then(() => {
+              this.showSuccess = true
+              this.$apply()
+            }).catch(() => {
+              toast('兑换失败')
+            })
+          }
+        })
+      },
+      hide () {
+        this.showSuccess = false
+      }
+    }
+
+    getGoodsDetail () {
+      fetch(`/index.php?g=Wxa&m=SetpChange&a=goodsList&session_3rd=${this.$parent.globalData.session}`).then((res) => {
+        const data = res.data.data
+        for (let value of data) {
+          if (value.id === this.id) {
+            this.goodsInfo = value
+            this.$apply()
+          }
+        }
+      })
+    }
+  }
+</script>

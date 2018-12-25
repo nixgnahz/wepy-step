@@ -14,6 +14,7 @@
         'pages/rule',
         'pages/person',
         'pages/lottery',
+        'pages/exchange',
         'pages/stepRecord',
         'pages/coinRecord'
       ],
