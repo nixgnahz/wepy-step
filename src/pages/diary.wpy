@@ -1,15 +1,138 @@
 <style lang="less">
-
+  @import "../style/diary.less";
 </style>
 
 <template>
-
+  <view class="active_top_title">
+    <view class="line"></view>
+    <view class="wechat_title">微信运动数据</view>
+    <view class="history-box">
+      <image class="calendar-img" src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/f/1/4/3/5c21f6a15596e.png"></image>
+      <view class="history_title">历史记录</view>
+    </view>
+  </view>
+  <view class="sports-calendar">
+    <view class="bar">
+      <view class="previous" @tap="handlePrev">
+        <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/2/a/3/6/5c21f78131f97.png"></image>
+      </view>
+      <view class="date">{{year}}年{{month}}月</view>
+      <view class="next" @tap="handleNext">
+        <image src="http://wx.11babay.cn/uploads/Q/Qdh4nAHglce5Bkn7PTKf/2/a/3/6/5c21f78131f97.png"></image>
+      </view>
+    </view>
+    <view class="week">
+      <repeat for="{{weeks}}" key="index" index="index" item="item">
+        <view class="week-num">{{item}}</view>
+      </repeat>
+    </view>
+    <view class="days-box">
+      <view class="days">
+        <repeat for="{{days.length / 7}}" key="idx" index="idx">
+          <view class="columns">
+            <repeat for="{{weeks}}" key="index_" index="index_">
+              <view class="rows">
+                <view class="cell" wx:if="{{!days[idx * 7 + index_].date}}"></view>
+                <view class="cell" wx:else>
+                  <text class="day">{{days[idx * 7 + index_].date}} </text>
+                  <text class="step-num {{days[idx * 7 + index_].stepNum >= 10000 ? 'large' : ''}}">{{days[idx * 7 + index_].stepNum}}</text>
+                </view>
+              </view>
+            </repeat>
+          </view>
+        </repeat>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script>
   import wepy from 'wepy'
 
   export default class Diary extends wepy.page {
+    data = {
+      year: '--',
+      month: '--',
+      weeks: ['日', '一', '二', '三', '四', '五', '六'],
+      days: []
+    }
 
+    stepInfoList = []
+
+    onLoad () {
+      const now = new Date()
+      this.year = now.getFullYear()
+      this.month = now.getMonth() + 1
+      this.stepInfoList = this.$parent.globalData.stepInfoList
+      this.initStepList()
+      this.initDays()
+    }
+
+    methods = {
+      handlePrev () {
+        if (this.month === 1) {
+          this.month = 12
+          this.year--
+        } else {
+          this.month--
+        }
+        this.initDays()
+      },
+      handleNext () {
+        if (this.month === 12) {
+          this.month = 1
+          this.year++
+        } else {
+          this.month++
+        }
+        this.initDays()
+      }
+    }
+
+    initStepList () {
+      let arr = []
+      for (let item of this.stepInfoList) {
+        const timestamp = new Date(item.timestamp * 1000)
+        const month = timestamp.getMonth()
+        const date = timestamp.getDate()
+        arr.push({
+          month: month + 1,
+          date: date,
+          step: item.step
+        })
+      }
+      this.stepInfoList = arr
+    }
+
+    initDays () {
+      const firstDayOfWeek = new Date(Date.UTC(this.year, this.month - 1, 1)).getDay()
+      const dayNum = new Date(this.year, this.month, 0).getDate()
+      const weekNum = Math.ceil((firstDayOfWeek + dayNum) / 7)
+      let arr = []
+      for (let i = 0; i < weekNum * 7; i++) {
+        arr.push({ date: 0 })
+      }
+      this.days = arr
+      for (let i = 0; i < this.days.length; i++) {
+        if (i >= firstDayOfWeek && i < dayNum + firstDayOfWeek) {
+          this.days[i] = {
+            date: i - firstDayOfWeek + 1
+          }
+        }
+      }
+      this.calculateStepOfMonth()
+    }
+
+    calculateStepOfMonth () {
+      for (let item of this.stepInfoList) {
+        if (item.month === this.month) {
+          for (let value of this.days) {
+            if (item.date === value.date) {
+              value.stepNum = item.step
+            }
+          }
+        }
+      }
+    }
   }
 </script>

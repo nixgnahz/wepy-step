@@ -132,7 +132,8 @@
         session: this.$parent.globalData.session
       }).then((res) => {
         const data = res.data.data.stepInfoList
-        let { [data.length - 1]: stepInfo } = data
+        const { [data.length - 1]: stepInfo } = data
+        this.$parent.globalData.stepInfoList = data
         this.signIn(stepInfo.step)
       })
     }

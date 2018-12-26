@@ -60,6 +60,7 @@
     }
 
     globalData = {
+      stepInfoList: [],
       token: 'jyttq1510637876',
       userInfo: {},
       session: '',
