@@ -175,19 +175,15 @@
       const firstDayOfWeek = new Date(Date.UTC(this.year, this.month - 1, this.isSundayFirst ? 1 : 0)).getDay()
       const dayNum = new Date(this.year, this.month, 0).getDate()
       const weekNum = Math.ceil((firstDayOfWeek + dayNum) / 7)
-      let arr = []
+      const arr = []
       for (let i = 0; i < weekNum * 7; i++) {
-        arr.push({ date: 0 })
-      }
-      this.days = arr
-      for (let i = 0; i < this.days.length; i++) {
         if (i >= firstDayOfWeek && i < dayNum + firstDayOfWeek) {
-          this.days[i] = {
-            date: i - firstDayOfWeek + 1
-          }
+          arr.push({ date: i - firstDayOfWeek + 1 })
+        } else {
+          arr.push({ date: 0 })
         }
       }
-      this.$apply()
+      this.days = arr
     }
   }
 </script>
