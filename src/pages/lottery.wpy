@@ -77,11 +77,10 @@
       }
     }
 
-    getCoinData () {
-      fetch(`/index.php?g=Wxa&m=SetpChange&a=getSetp&session_3rd=${this.$parent.globalData.session}`).then((res) => {
-        this.coin = res.data.userinfo.cold
-        this.$apply()
-      })
+    async getCoinData () {
+      const res = await fetch(`/index.php?g=Wxa&m=SetpChange&a=getSetp&session_3rd=${this.$parent.globalData.session}`)
+      this.coin = res.data.userinfo.cold
+      this.$apply()
     }
 
     rotateDial (res) {

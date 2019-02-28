@@ -42,24 +42,22 @@
       this.getCoinData()
     }
 
-    getCoinList () {
-      fetch(`/index.php?g=Wxa&m=SetpChange&a=coldInfo&session_3rd=${this.$parent.globalData.session}`).then((res) => {
-        const data = res.data.data
-        let arr = []
-        for (let value of data) {
-          value.category = (Number(value.category) === 1 ? '步数兑换金币' : '金币兑换商品')
-          arr.push(value)
-        }
-        this.coinList = arr
-        this.$apply()
-      })
+    async getCoinList () {
+      const res = await fetch(`/index.php?g=Wxa&m=SetpChange&a=coldInfo&session_3rd=${this.$parent.globalData.session}`)
+      const data = res.data.data
+      let arr = []
+      for (let value of data) {
+        value.category = (Number(value.category) === 1 ? '步数兑换金币' : '金币兑换商品')
+        arr.push(value)
+      }
+      this.coinList = arr
+      this.$apply()
     }
 
-    getCoinData () {
-      fetch(`/index.php?g=Wxa&m=SetpChange&a=getSetp&session_3rd=${this.$parent.globalData.session}`).then((res) => {
-        this.coinNum = res.data.userinfo.cold || 0
-        this.$apply()
-      })
+    async getCoinData () {
+      const res = await fetch(`/index.php?g=Wxa&m=SetpChange&a=getSetp&session_3rd=${this.$parent.globalData.session}`)
+      this.coinNum = res.data.userinfo.cold || 0
+      this.$apply()
     }
   }
 </script>

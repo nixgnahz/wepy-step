@@ -52,13 +52,12 @@
       this.getSignData()
     }
 
-    getSignData () {
-      fetch(`/index.php?g=Wxa&m=SetpChange&a=getSetp&session_3rd=${this.$parent.globalData.session}`).then((res) => {
-        const { even_num: signInDays, inviter } = res.data.userinfo
-        this.inviter = inviter || '暂无'
-        this.signInDays = signInDays || 1
-        this.$apply()
-      })
+    async getSignData () {
+      const res = await fetch(`/index.php?g=Wxa&m=SetpChange&a=getSetp&session_3rd=${this.$parent.globalData.session}`)
+      const { even_num: signInDays, inviter } = res.data.userinfo
+      this.inviter = inviter || '暂无'
+      this.signInDays = signInDays || 1
+      this.$apply()
     }
   }
 </script>

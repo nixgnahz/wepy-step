@@ -115,16 +115,15 @@
       }
     }
 
-    getGoodsDetail () {
-      fetch(`/index.php?g=Wxa&m=SetpChange&a=goodsList&session_3rd=${this.$parent.globalData.session}`).then((res) => {
-        const data = res.data.data
-        for (let value of data) {
-          if (value.id === this.id) {
-            this.goodsInfo = value
-            this.$apply()
-          }
+    async getGoodsDetail () {
+      const res = await fetch(`/index.php?g=Wxa&m=SetpChange&a=goodsList&session_3rd=${this.$parent.globalData.session}`)
+      const data = res.data.data
+      for (let value of data) {
+        if (value.id === this.id) {
+          this.goodsInfo = value
+          this.$apply()
         }
-      })
+      }
     }
 
     onShareAppMessage () {

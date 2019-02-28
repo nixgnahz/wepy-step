@@ -44,24 +44,22 @@
       this.getStepData()
     }
 
-    getStepList () {
-      fetch(`/index.php?g=Wxa&m=SetpChange&a=stepInfo&session_3rd=${this.$parent.globalData.session}`).then((res) => {
-        const data = res.data.data
-        let arr = []
-        for (let value of data) {
-          value.category = getCategory(value.category)
-          arr.push(value)
-        }
-        this.stepList = arr
-        this.$apply()
-      })
+    async getStepList () {
+      const res = await fetch(`/index.php?g=Wxa&m=SetpChange&a=stepInfo&session_3rd=${this.$parent.globalData.session}`)
+      const data = res.data.data
+      let arr = []
+      for (let value of data) {
+        value.category = getCategory(value.category)
+        arr.push(value)
+      }
+      this.stepList = arr
+      this.$apply()
     }
 
-    getStepData () {
-      fetch(`/index.php?g=Wxa&m=SetpChange&a=getSetp&session_3rd=${this.$parent.globalData.session}`).then((res) => {
-        this.stepNum = res.data.userinfo.totalwxstep || 0
-        this.$apply()
-      })
+    async getStepData () {
+      const res = await fetch(`/index.php?g=Wxa&m=SetpChange&a=getSetp&session_3rd=${this.$parent.globalData.session}`)
+      this.stepNum = res.data.userinfo.totalwxstep || 0
+      this.$apply()
     }
   }
 </script>

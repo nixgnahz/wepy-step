@@ -63,13 +63,12 @@
     }
 
     events = {
-      hideBubble (index) {
+      async hideBubble (index) {
         const id = this.bubbles[index].id
-        fetch(`/index.php?g=Wxa&m=SetpChange&a=receiveSetp&session_3rd=${this.$parent.globalData.session}&id=${id}`).then((res) => {
-          this.playVoice(this.bubbleVoice)
-          this.bubbles.splice(index, 1)
-          this.getCoinData()
-        })
+        const res = await fetch(`/index.php?g=Wxa&m=SetpChange&a=receiveSetp&session_3rd=${this.$parent.globalData.session}&id=${id}`)
+        this.playVoice(this.bubbleVoice)
+        this.bubbles.splice(index, 1)
+        this.getCoinData()
       },
       exchangeGoods (index) {
         const { on, cold: coin, id } = this.goodsList[index]
@@ -125,17 +124,16 @@
       })
     }
 
-    getDecodeData (res) {
-      decode({
+    async getDecodeData (res) {
+      const res = await decode({
         encryptedData: res.encryptedData,
         iv: res.iv,
         session: this.$parent.globalData.session
-      }).then((res) => {
-        const data = res.data.data.stepInfoList
-        const { [data.length - 1]: stepInfo } = data
-        this.$parent.globalData.stepInfoList = data
-        this.signIn(stepInfo.step)
       })
+      const data = res.data.data.stepInfoList
+      const { [data.length - 1]: stepInfo } = data
+      this.$parent.globalData.stepInfoList = data
+      this.signIn(stepInfo.step)
     }
 
     signIn (wxStep) {
@@ -148,22 +146,21 @@
       })
     }
 
-    getCoinData () {
-      fetch(`/index.php?g=Wxa&m=SetpChange&a=getSetp&session_3rd=${this.$parent.globalData.session}`).then((res) => {
-        let { step_num: stepNum, cold: coin } = res.data.userinfo
-        let arr = []
-        if (res.data.data) {
-          const data = res.data.data
-          for (let key in res.data.data) {
-            data[key].category = getCategory(data[key].category)
-            arr.push(data[key])
-          }
+    async getCoinData () {
+      const res = await fetch(`/index.php?g=Wxa&m=SetpChange&a=getSetp&session_3rd=${this.$parent.globalData.session}`)
+      let { step_num: stepNum, cold: coin } = res.data.userinfo
+      let arr = []
+      if (res.data.data) {
+        const data = res.data.data
+        for (let key in res.data.data) {
+          data[key].category = getCategory(data[key].category)
+          arr.push(data[key])
         }
-        this.coin = coin
-        this.stepNum = stepNum
-        this.bubbles = arr
-        this.setBubbles()
-      })
+      }
+      this.coin = coin
+      this.stepNum = stepNum
+      this.bubbles = arr
+      this.setBubbles()
     }
 
     setBubbles () {
@@ -184,21 +181,19 @@
       this.$apply()
     }
 
-    getGoodsList () {
-      fetch(`/index.php?g=Wxa&m=SetpChange&a=goodsList&session_3rd=${this.$parent.globalData.session}`).then((res) => {
-        this.goodsList = res.data.data
-        this.$apply()
-      })
+    async getGoodsList () {
+      const res = await fetch(`/index.php?g=Wxa&m=SetpChange&a=goodsList&session_3rd=${this.$parent.globalData.session}`)
+      this.goodsList = res.data.data
+      this.$apply()
     }
 
-    exchangeCoin () {
-      fetch(`/index.php?g=Wxa&m=SetpChange&a=exChangeCold&session_3rd=${this.$parent.globalData.session}`).then((res) => {
-        this.playVoice(this.successVoice)
-        toast(`您消耗${this.stepNum}步兑换了${res.data.exchange}金币`)
-        this.showSuccess = true
-        this.$apply()
-        this.getCoinData()
-      })
+    async exchangeCoin () {
+      const res = await fetch(`/index.php?g=Wxa&m=SetpChange&a=exChangeCold&session_3rd=${this.$parent.globalData.session}`)
+      this.playVoice(this.successVoice)
+      toast(`您消耗${this.stepNum}步兑换了${res.data.exchange}金币`)
+      this.showSuccess = true
+      this.$apply()
+      this.getCoinData()
     }
 
     playVoice (src) {
