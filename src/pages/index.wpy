@@ -125,12 +125,12 @@
     }
 
     async getDecodeData (res) {
-      const res = await decode({
+      const result = await decode({
         encryptedData: res.encryptedData,
         iv: res.iv,
         session: this.$parent.globalData.session
       })
-      const data = res.data.data.stepInfoList
+      const data = result.data.data.stepInfoList
       const { [data.length - 1]: stepInfo } = data
       this.$parent.globalData.stepInfoList = data
       this.signIn(stepInfo.step)
